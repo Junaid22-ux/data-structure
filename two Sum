@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int N, target;
+    scanf("%d", &N);
+    
+    int *nums = (int*)malloc(N * sizeof(int));
+    for (int i = 0; i < N; i++) {
+        scanf("%d", &nums[i]);
+    }
+    
+    scanf("%d", &target);
+    
+    int *map = (int*)malloc(20001 * sizeof(int));
+    for (int i = 0; i < 20001; i++) {
+        map[i] = -1;
+    }
+
+    for (int i = 0; i < N; i++) {
+        int complement = target - nums[i];
+        if (complement >= -10000 && complement <= 10000 && map[complement + 10000] != -1) {
+            printf("%d %d\n", map[complement + 10000], i);
+            break;
+        }
+        map[nums[i] + 10000] = i;
+    }
+    
+    free(nums);
+    free(map);
+    
+    return 0;
+}
